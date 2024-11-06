@@ -23,8 +23,8 @@ pipeline {
                     // Ejecutar el scanner de SonarQube
                     sh """
                         sonar-scanner \
-                        -Dsonar.projectKey=Pipeline_Sonarqube \
-                        -Dsonar.sources=vulnerabilities \
+                        -Dsonar.projectKey=Pipeline_P2 \
+                        -Dsonar.sources=. \
                         -Dsonar.php.version=8.0
                     """
                 }
