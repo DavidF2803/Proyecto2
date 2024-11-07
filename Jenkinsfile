@@ -45,7 +45,7 @@ pipeline {
                 // Usar credenciales SSH para conectarse al servidor web
                 sshagent(['webserver_ssh_credentials_id']) {
                     sh '''
-                        ssh user@webserver 'cd /ruta/al/deploy && git clone https://tu.repositorio.git || (cd /ruta/al/deploy/tu_proyecto && git pull)'
+                        ssh up2g1@10.30.212.47 'cd /var/www/html/Proyecto2-Web && git clone https://github.com/DavidF2803/Proyecto2.git || (cd /home/up2g1 && git pull)'
                     '''
                 }
             }
