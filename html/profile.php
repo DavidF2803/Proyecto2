@@ -1,7 +1,7 @@
 <?php 
 session_start(); // Iniciar sesión
 
-require(__DIR__.'/../php/mysqlProfile.php');
+require __DIR__.'/../php/mysqlProfile.php';
 
 // Verificar si no hay una sesión iniciada
 if (!isset($_SESSION["currentEmail"])) {

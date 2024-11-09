@@ -1,6 +1,6 @@
 <?php 
-session_start(); // Iniciar la sesión
-require __DIR__.'/../php/mysqlSignIn.php';
+require(__DIR__.'/../php/
+mysqlSignUp.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,16 +17,15 @@ require __DIR__.'/../php/mysqlSignIn.php';
     />
     <link rel="stylesheet" href="../css/Navbar.css" />
     <link rel="stylesheet" href="../css/Form.css" />
-    <title>Sign In</title>
+    <title>Sign Up</title>
   </head>
-  <body>
-    <body>
+  <body onload="verifySignUp()">
         <div class="Navbar">
           <div class="container-fluid">
             <a class="Navbar__brand" href="javascript:window.location.assign('index.html')">
               <img
                 class="Navbar__brand-logo"
-                src="../img/pokeball.svg"
+                src="../img/pokebad.svg"
                 alt="Logo"
               />
               <span class="font-weight-light">Poké</span>
@@ -38,15 +37,12 @@ require __DIR__.'/../php/mysqlSignIn.php';
         <div class="Form__container">
           <div class="row">
             <div class="col-6">
-              <img class="Form__img" src="../img/signin.png" alt="">
-            </div>
-            <div class="col-6">
               <div class="container-fluid">
                   <h1>
                     <span class="display-3 Home__title font-weight-light">Sign</span>
-              <span class="display-3 Home__title font-weight-bold">In</span>
+              <span class="display-3 Home__title font-weight-bold">Up</span>
                   </h1>
-                  <form action="signin.php" method="post" id="signin-form">
+                 <form action="signup.php" method="post" id="signup-form">
                     <div class="form-group">
                       <label class="font-weight-light" for="inputEmail">
                         Email address</label>
@@ -54,20 +50,29 @@ require __DIR__.'/../php/mysqlSignIn.php';
                       <small id="emailDescription" class="font-weight-bold">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                      <label class="font-weight-light" for="inputPwd">Password</label>
-                      <input onkeyup="enableButton()" type="password" name="pwd" class="form-control" id="inputPwd" placeholder="Enter your password">
+                      <label class="font-weight-light" for="inputName">
+                        Name</label>
+                      <input onkeyup="replaceNumbersAndSpecialChars()" type="text" name="name" class="form-control" id="inputName" placeholder="Enter your name">
                     </div>
-                    <button id="submButton" type="button" class="font-weight-bold btn btn-success">Login</button>
-                    <small class="ml-3 font-weight-bold text-danger">
-                      <?php 
-                      echo $message;
-                      ?>
-                    </small>
+                    <div class="form-group">
+                      <label class="font-weight-light" for="inputPwd">Password</label>
+                      <input onkeyup="enableButton()" minlength="6" type="password" name="pwd" class="form-control" id="inputPwd" aria-describedby="pwdDescription" placeholder="Enter your password">
+                      <small id="pwdDescription" class="font-weight-bold">At least one capital letter, a number and a minimum length of 6 characters.</small>
+                    </div>
                   </form>
+                  <button type="button" id="submButton" class="font-weight-bold btn btn-primary">Register</button>
+                  <small id="errorMessage" class="ml-3 font-weight-bold text-danger">
+                    <?php 
+                    echo $message;
+                    ?>
+                  </small>
               </div>
+            </div>
+            <div class="col-6">
+              <img class="Form__img" src="../img/signup.png" alt="">
           </div>
           </div>
         </div>
-        <script src="../js/signin.js"></script>
+        <script src="../js/signup.js"></script>
   </body>
 </html>

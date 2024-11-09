@@ -1,6 +1,6 @@
 <?php 
 session_start(); // Iniciar la sesión
-require(__DIR__.'/../php/mysqlMain.php');
+require __DIR__.'/../php/mysqlMain.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION["currentEmail"])) {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
     $trainerEmail = $_POST['user-mail'];
 
     // Conectar a la base de datos
-    $link = mysqli_connect("localhost", "root", "", "Pokewebapp");
+    $link = mysqli_connect("localhost", "root", "Gallorojo2024#", "Pokewebapp");
 
     // Revisar si se ha realizado la conexión
     if ($link == false) {

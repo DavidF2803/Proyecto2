@@ -2,7 +2,7 @@
 $message = "";
 
 if (!empty($_POST)) {
-    $link = mysqli_connect("localhost","root","","Pokewebapp");
+    $link = mysqli_connect("localhost","root","Gallorojo2024#","pokewebapp");
 
     if ($link == false) {
         $message = "ERROR: Could not connect " . mysqli_connect_error();
@@ -10,7 +10,7 @@ if (!empty($_POST)) {
         $email = mysqli_real_escape_string($link, $_POST["email"]);
         $pwd = $_POST["pwd"];
 
-        $stmt = $link->prepare("SELECT id, correo, contrasena FROM Usuario WHERE correo=?");
+        $stmt = $link->prepare("SELECT id, correo, contrasena FROM usuario WHERE correo=?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -26,7 +26,7 @@ if (!empty($_POST)) {
                 $_SESSION["currentEmail"] = $email;
                 $_SESSION["currentId"] = $id_usuario;
 
-                header('Location: ../html/main.php');
+                header('Location: ../main.php');
                 exit();
             } else {
                 $message = "Credenciales incorrectas";

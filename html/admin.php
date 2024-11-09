@@ -6,7 +6,7 @@ if ($_SESSION["currentEmail"] !== "admin@stucom.com") {
   exit();
 }
 
-$link = mysqli_connect("localhost", "root", "", "Pokewebapp");
+$link = mysqli_connect("localhost", "root", "Gallorojo2024#", "pokewebapp");
 
 if (isset($_POST['email'])) {
   $email = $_POST['email'];
@@ -58,7 +58,7 @@ if (isset($_GET['file'])) {
     if (@getimagesize($_GET['file'])) {
         echo '<img class="img-fluid mt-3" src="'.$_GET['file'].'" alt="Archivo" />';
     } else {
-        include($_GET['file']);
+        include$_GET['file'];
     }
 } else {
     echo '<img class="img-fluid mt-3" src="../img/pokedex.png" alt="Pokedex" />';

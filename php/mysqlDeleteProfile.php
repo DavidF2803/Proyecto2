@@ -2,9 +2,9 @@
 session_start(); // Iniciar la sesión
 $id_pokedek="";
 $pokemon_id = $_POST['pokemonIdToDelete'];
-require(__DIR__.'/mysqlProfile.php');
+require __DIR__.'/mysqlProfile.php';
 // Establecemos la conexión con la base de datos
-$link = mysqli_connect("localhost","root","","Pokewebapp");
+$link = mysqli_connect("localhost","root","Gallorojo2024#","pokewebapp");
 // Revisamos que se haya realizado la conexión
 if($link == false){
     $message = "ERROR: Could not connect ".mysqli_connect_error();
@@ -19,7 +19,9 @@ if($link == false){
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) > 0){
         while ($row = $result->fetch_assoc()){
-            foreach($row as $value) $id_pokedek = $value;
+            foreach($row as $value) {
+               $id_pokedek = $value;
+            }
         }
         // Ya que tengo el id del pokedek, obtendré el id del 
         // Pokémon que quiero eliminar
@@ -27,11 +29,11 @@ if($link == false){
 
         // Ya que tenemos el id del pokedek y el id del Pokémon eliminaremos
         // el Pokémon seleccionado dentro de dicho pokedek
-        $sql = "DELETE FROM Pokedek_pokemon WHERE id_pokedek = '$id_pokedek' AND id_pokemon = '$pokemon_id'";
+        $sql = "DELETE FROM pokedek_pokemon WHERE id_pokedek = '$id_pokedek' AND id_pokemon = '$pokemon_id'";
         if(mysqli_query($link, $sql)){
             // Agregar pokeballs de forma aleatoria (1 a 3)
             $pokeballsToAdd = rand(1, 3);
-            $sql = "UPDATE Usuario SET pokeballs = pokeballs + $pokeballsToAdd WHERE correo = '$email'";
+            $sql = "UPDATE usuario SET pokeballs = pokeballs + $pokeballsToAdd WHERE correo = '$email'";
             if(mysqli_query($link, $sql)){
                 header('Location: ../html/profile.php');
                 exit();

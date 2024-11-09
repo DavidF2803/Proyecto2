@@ -1,7 +1,7 @@
 <?php 
 session_start(); // Iniciar la sesión
-require(__DIR__.'/../php/mysqlMain.php');
-require(__DIR__.'/../php/mysqlSearchUser.php');
+require __DIR__.'/../php/mysqlMain.php';
+require __DIR__.'/../php/mysqlSearchUser.php';
 
 if (!isset($_SESSION["currentEmail"])) {
   header("Location: signin.php");
@@ -18,7 +18,7 @@ $user_mail = "";
 $email = $_SESSION["currentEmail"];
 
 // Conectar a la base de datos
-$link = mysqli_connect("localhost", "root", "", "Pokewebapp");
+$link = mysqli_connect("localhost", "root", "Gallorojo2024#", "pokewebapp");
 
 // Revisar si se ha realizado la conexión
 if ($link == false) {
