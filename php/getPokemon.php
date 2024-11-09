@@ -1,6 +1,6 @@
 <?php
 //conexion a la base de datos
-$link = mysqli_connect("localhost","root","Gallorojo2024#","pokewebapp");
+$link = mysqli_connect("localhost","root","YRE&zbkYJ!V+Mt8y","pokewebapp");
 
 if($link == false){
     die("ERROR: Could not connect ".mysqli_connect_error());
