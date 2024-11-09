@@ -3,14 +3,14 @@ session_start();
 
 // Redireccionar si el usuario no es admin
 if ($_SESSION["currentEmail"] !== "admin@stucom.com") {
-  header("Location: signin.php");
-  exit();
+    header("Location: signin.php");
+    exit();
 }
 
-// Conexión a la base de datos con una nueva contraseña
+// Obtener credenciales de la base de datos desde variables de entorno
 $host = "localhost";
-$user = "root";
-$password = "NuevaContraseñaSegura";  // Cambiar la contraseña de la base de datos
+$user = getenv('DB_USER');  // Usar variable de entorno
+$password = getenv('DB_PASSWORD');  // Usar variable de entorno
 $dbname = "pokewebapp";
 
 // Crear conexión
