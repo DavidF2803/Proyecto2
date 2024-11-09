@@ -3,8 +3,15 @@ session_start(); // Iniciar la sesión
 $id_pokedek="";
 $pokemon_id = $_POST['pokemonIdToDelete'];
 require __DIR__.'/mysqlProfile.php';
+
+// Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
+$host = "localhost";
+$user = "root";
+$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
+$dbname = "pokewebapp";
+
 // Establecemos la conexión con la base de datos
-$link = mysqli_connect("localhost","root","YRE&zbkYJ!V+Mt8y","pokewebapp");
+$link = mysqli_connect($host, $user, $password, $dbname);
 // Revisamos que se haya realizado la conexión
 if($link == false){
     $message = "ERROR: Could not connect ".mysqli_connect_error();
@@ -23,6 +30,18 @@ if($link == false){
                $id_pokedek = $value;
             }
         }
+
+// Usar la contraseña de SQL para la creación de una clave segura
+use Defuse\Crypto\KeyOrPassword;
+
+function createKey() {
+    global $password;  // Accedemos a la contraseña global de SQL
+    return KeyOrPassword::createFromPassword($password);
+}
+
+// Ahora puedes usar `createKey()` donde necesites la clave generada
+$key = createKey();
+
         // Ya que tengo el id del pokedek, obtendré el id del 
         // Pokémon que quiero eliminar
         // ...

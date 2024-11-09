@@ -1,10 +1,28 @@
 <?php
+
+// Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
+$host = "localhost";
+$user = "root";
+$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
+$dbname = "pokewebapp";
+
 //conexion a la base de datos
-$link = mysqli_connect("localhost","root","YRE&zbkYJ!V+Mt8y","pokewebapp");
+$link = mysqli_connect($host, $user, $password, $dbname);
 
 if($link == false){
     die("ERROR: Could not connect ".mysqli_connect_error());
 }
+
+// Usar la contraseña de SQL para la creación de una clave segura
+use Defuse\Crypto\KeyOrPassword;
+
+function createKey() {
+    global $password;  // Accedemos a la contraseña global de SQL
+    return KeyOrPassword::createFromPassword($password);
+}
+
+// Ahora puedes usar `createKey()` donde necesites la clave generada
+$key = createKey();
 
 $pokemonId = $_POST['pokemonId'];
 

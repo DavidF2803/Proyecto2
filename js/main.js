@@ -134,14 +134,12 @@
 
 //Filtrando pokémon
 const filterPokemon = () => {
-  let $filter
-  let wantedpokemon
   let $pokeRow
   let $pokeCards
   let i
   let $pokeCardsContainer
-  $filter = document.querySelector("#filter-pokemon");
-  wantedPokemon = $filter.value.toUpperCase();
+  let $filter = document.querySelector("#filter-pokemon");
+  let wantedPokemon = $filter.value.toUpperCase();
   $pokeRow = document.querySelector("#pokeRow");
   $pokeCards = $pokeRow.querySelectorAll(".PokeCard");
   for (i = 0; i < $pokeCards.length; i++) {
