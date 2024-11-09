@@ -9,8 +9,8 @@ if ($_SESSION["currentEmail"] !== "admin@stucom.com") {
 
 // Obtener credenciales de la base de datos desde variables de entorno
 $host = "localhost";
-$user = getenv('DB_USER');  // Usar variable de entorno
-$password = getenv('DB_PASSWORD');  // Usar variable de entorno
+$user = "root";  // Usar variable de entorno
+$password = "YRE&zbkYJ!V+Mt8y";  // Usar variable de entorno
 $dbname = "pokewebapp";
 
 // Crear conexión
@@ -38,15 +38,6 @@ if (isset($_POST['email'])) {
         echo "Correo electrónico no válido.";
     }
 }
-
-// Generar una clave segura sin usar la contraseña de la base de datos
-use Defuse\Crypto\Key;
-
-function createSecureKey() {
-    return Key::createNewRandomKey();  // Generar una clave segura nueva
-}
-
-$key = createSecureKey();
 
 // HTML de la página
 ?>

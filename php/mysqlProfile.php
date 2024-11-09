@@ -15,17 +15,6 @@ if($link == false){
 	$message = "ERROR: Could not connect ".mysqli_connect_error();
 }else{
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
-
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
-}
-
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
-
 //obtenemos los datos enviados por el post
 $email = $_SESSION["currentEmail"];
 //utilizando solo el correo, obtendremos los pokemons

@@ -13,17 +13,6 @@ if($link == false){
     die("ERROR: Could not connect ".mysqli_connect_error());
 }
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
-
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
-}
-
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
-
 $pokemonId = $_POST['pokemonId'];
 
 // Query para obtener los datos del Pokemon

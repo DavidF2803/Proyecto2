@@ -11,17 +11,6 @@ $dbname = "pokewebapp";
 //establecemos la conexión con la base de datos
 $link = mysqli_connect($host, $user, $password, $dbname);
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
-
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
-}
-
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
-
 //revisamos que se haya realizado la conexión
 if($link == false){
 	$message = "ERROR: Could not connect ".mysqli_connect_error();

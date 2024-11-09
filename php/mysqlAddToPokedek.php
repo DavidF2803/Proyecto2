@@ -23,17 +23,6 @@ if ($link == false) {
     session_start();
     $userID = $_SESSION["currentId"];
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
-
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
-}
-
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
-
     // Verificar si hay pokeballs disponibles
     $sql = "SELECT pokeballs FROM usuario WHERE id='$userID'";
     $result = mysqli_query($link, $sql);
