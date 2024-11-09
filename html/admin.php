@@ -1,42 +1,54 @@
-<?php 
+<?php
 session_start();
 
+// Redireccionar si el usuario no es admin
 if ($_SESSION["currentEmail"] !== "admin@stucom.com") {
   header("Location: signin.php");
   exit();
 }
 
-// Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
+// Conexión a la base de datos con una nueva contraseña
 $host = "localhost";
 $user = "root";
-$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
+$password = "NuevaContraseñaSegura";  // Cambiar la contraseña de la base de datos
 $dbname = "pokewebapp";
 
-$link = mysqli_connect($host, $user, $password, $dbname);
+// Crear conexión
+$link = new mysqli($host, $user, $password, $dbname);
 
+// Verificar conexión
+if ($link->connect_error) {
+    die("Error de conexión: " . $link->connect_error);
+}
+
+// Procesar formulario de búsqueda
 if (isset($_POST['email'])) {
-  $email = $_POST['email'];
+    $email = $_POST['email'];
 
-  $query = "SELECT nombre,correo,pokeballs FROM usuario WHERE correo = '$email'";
-  $result = mysqli_query($link, $query);
-
-  if (!$result) {
-    echo mysqli_error($link);
-    exit();
-  }
+    // Validar el email antes de usarlo en la consulta
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Usar consulta preparada para evitar inyección SQL
+        $stmt = $link->prepare("SELECT nombre, correo, pokeballs FROM usuario WHERE correo = ?");
+        $stmt->bind_param("s", $email);
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        echo "Correo electrónico no válido.";
+    }
 }
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
+// Generar una clave segura sin usar la contraseña de la base de datos
+use Defuse\Crypto\Key;
 
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
+function createSecureKey() {
+    return Key::createNewRandomKey();  // Generar una clave segura nueva
 }
 
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
+$key = createSecureKey();
 
+// HTML de la página
 ?>
 
 <!DOCTYPE html>
