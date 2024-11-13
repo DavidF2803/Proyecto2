@@ -41,14 +41,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /*transition: 300s ease-in;*/
-  /*opacity: 0;*/
-  /*visibility: hidden;*/
   display: none;
 }
 .overlay.active {
-  /*opacity: 1;*/
-  /*visibility: visible;*/
   display: flex;
 }
 .modal {
@@ -84,7 +79,6 @@
 .modal-content p {
   align-self: center;
 }
-/*@keyframes animationIn {*/
 @keyframes modalIn {
   0% {
     transform: translateY(-3000px);
@@ -103,7 +97,6 @@
   }
 }
 
-/*@keyframes animationOut {*/
 @keyframes modalOut {
   0% {
     transform: translateY(5px);

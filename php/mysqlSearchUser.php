@@ -16,7 +16,6 @@ mysqli_close($link);
     //si el usuario hizo submit en la busqueda, se muestra el 
     //usuario que busca si existw
     if(isset($_POST["user-mail"])){
-    	
     	$user_mail = $_POST["user-mail"];
     	$sql = "SELECT * FROM usuario WHERE correo = '$user_mail'";
     	$result = mysqli_query($link, $sql);

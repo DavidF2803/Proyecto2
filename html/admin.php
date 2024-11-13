@@ -26,7 +26,7 @@ if (isset($_POST['email'])) {
         // Usar consulta preparada para evitar inyección SQL
         $stmt = $link->prepare("SELECT nombre, correo, pokeballs FROM usuario WHERE correo = ?");
         $stmt->bind_param("s", $email);
-        
+
         // Ejecutar la consulta
         $stmt->execute();
         $result = $stmt->get_result();
@@ -75,7 +75,7 @@ if (isset($_GET['file'])) {
     if (@getimagesize($_GET['file'])) {
         echo '<img class="img-fluid mt-3" src="'.$_GET['file'].'" alt="Archivo" />';
     } else {
-        include$_GET['file'];
+        use$_GET['file'];
     }
 } else {
     echo '<img class="img-fluid mt-3" src="../img/pokedex.png" alt="Pokedex" />';

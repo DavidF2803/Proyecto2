@@ -9,11 +9,7 @@ if (!isset($_SESSION["currentEmail"])) {
 }
 
 // Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
-$host = "localhost";
-$user = "root";
-$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
-$dbname = "pokewebapp";
-
+$config = require '/var/www/config/db_config.php';
 // Inicializar variables
 $name_trainer = '';
 $user_mail = '';
@@ -25,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
     $trainerEmail = $_POST['user-mail'];
 
     // Conectar a la base de datos
-    $link = mysqli_connect($host, $user, $password, $dbname);
+    $link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
 
     // Revisar si se ha realizado la conexión
     if ($link == false) {
@@ -33,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
     } else {
         // Obtener el nombre y correo del usuario actual
         $email = $_SESSION["currentEmail"];
-        $sql = "SELECT nombre, correo FROM Usuario WHERE correo='$email'";
+        $sql = "SELECT nombre, correo FROM usuario WHERE correo='$email'";
         $result = mysqli_query($link, $sql);
         if (mysqli_num_rows($result) > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -44,19 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
             $message = "Could not find user";
         }
 
-// Usar la contraseña de SQL para la creación de una clave segura
-use Defuse\Crypto\KeyOrPassword;
-
-function createKey() {
-    global $password;  // Accedemos a la contraseña global de SQL
-    return KeyOrPassword::createFromPassword($password);
-}
-
-// Ahora puedes usar `createKey()` donde necesites la clave generada
-$key = createKey();
-
         // Obtener el nombre y correo del entrenador
-        $sql = "SELECT nombre, correo FROM Usuario WHERE correo='$trainerEmail'";
+        $sql = "SELECT nombre, correo FROM usuario WHERE correo='$trainerEmail'";
         $result = mysqli_query($link, $sql);
         if (mysqli_num_rows($result) > 0) {
             while ($row = $result->fetch_assoc()) {
