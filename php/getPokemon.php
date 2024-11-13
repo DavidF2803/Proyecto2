@@ -1,13 +1,9 @@
 <?php
 
 // Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
-$host = "localhost";
-$user = "root";
-$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
-$dbname = "pokewebapp";
-
+$config = require '/var/www/config/db_config.php';
 //conexion a la base de datos
-$link = mysqli_connect($host, $user, $password, $dbname);
+$link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
 
 if($link == false){
     die("ERROR: Could not connect ".mysqli_connect_error());

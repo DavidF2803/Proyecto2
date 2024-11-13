@@ -8,13 +8,9 @@ if ($_SESSION["currentEmail"] !== "admin@stucom.com") {
 }
 
 // Obtener credenciales de la base de datos desde variables de entorno
-$host = "localhost";
-$user = "root";  // Usar variable de entorno
-$password = "YRE&zbkYJ!V+Mt8y";  // Usar variable de entorno
-$dbname = "pokewebapp";
-
+$config = require '/var/www/config/db_config.php';
 // Crear conexión
-$link = new mysqli($host, $user, $password, $dbname);
+$link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
 
 // Verificar conexión
 if ($link->connect_error) {
