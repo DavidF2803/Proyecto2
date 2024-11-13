@@ -1,15 +1,12 @@
 <?php
 require __DIR__.'/mysqlProfile.php';
-// Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
-$host = "localhost";
-$user = "root";
-$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
-$dbname = "pokewebapp";
+// Carga la configuración desde el archivo
+$config = require '/var/www/config/db_config.php';
 
 //obtenemos el indice de la imagen clickeada
 $id = $_COOKIE["clicked"];
 //establecemos la conexión con la base de datos
-$link = mysqli_connect($host, $user, $password, $dbname);
+$link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
 //revisamos que se haya realizado la conexión
 if($link == false){
 	echo "cannot connect";

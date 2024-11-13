@@ -1,16 +1,11 @@
 <?php
 $message = "";
 
-// Establecemos la conexión con la base de datos (ajustando esto a una variable para reutilizar la contraseña)
-$host = "localhost";
-$user = "root";
-$password = "YRE&zbkYJ!V+Mt8y";  // contraseña de la base de datos
-$dbname = "pokewebapp";
+$config = require '/var/www/config/db_config.php';
 
 // Establecemos la conexión con la base de datos
 if (!empty($_POST)) {
-    $link = mysqli_connect($host, $user, $password, $dbname);
-
+    $link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
     // Revisamos que se haya realizado la conexión
     if ($link == false){
         die("ERROR: Could not connect ".mysqli_connect_error());
@@ -21,7 +16,7 @@ if (!empty($_POST)) {
         $pwd = password_hash($_POST["pwd"], PASSWORD_BCRYPT);
         $pokeballs= 30;
         $date = date("Y/m/d h:i:s");
-        
+
         // Preparamos el query para evitar inyecciones SQL
         $stmt = $link->prepare("SELECT * FROM usuario WHERE correo=?");
         $stmt->bind_param("s", $email);
