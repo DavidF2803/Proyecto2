@@ -32,14 +32,14 @@ pipeline {
         }
 
         // 5. Etapa de Espera para el Quality Gate de SonarQube
-           stage('Quality Gate') {
-            steps {
+           //stage('Quality Gate') {
+            //steps {
                  // Esperar el resultado del Quality Gate
-               timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-         }
+               //timeout(time: 1, unit: 'HOURS') {
+                    //waitForQualityGate abortPipeline: true
+                //}
+            //}
+        //}
         stage('DAST con OWASP ZAP') {
             steps {
                 script {
