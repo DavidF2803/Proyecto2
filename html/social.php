@@ -21,7 +21,7 @@ $email = $_SESSION["currentEmail"];
 if ($link == false) {
     $message = "ERROR: Could not connect " . mysqli_connect_error();
 } else {
-    $sql = "SELECT nombre, correo FROM Usuario WHERE correo='$email'";
+    $sql = "SELECT nombre, correo FROM usuario WHERE correo='$email'";
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -31,11 +31,11 @@ if ($link == false) {
         $message = "Could not find user";
     }
 
-    if (isset($_POST['user-mail']) && !empty($_POST['user-mail'])) {
-        $searchEmail = $_POST['user-mail'];
-        $sql2 = "SELECT * FROM Usuario WHERE correo LIKE '%" . mysqli_real_escape_string($link, $searchEmail) . "%'";
+    if (isset($_POST['trainer-mail']) && !empty($_POST['trainer-mail'])) {
+        $searchEmail = $_POST['trainer-mail'];
+        $sql2 = "SELECT * FROM usuario WHERE correo LIKE '%" . mysqli_real_escape_string($link, $searchEmail) . "%'";
     } else {
-        $sql2 = "SELECT * FROM Usuario WHERE correo != 'admin@stucom.com'";
+        $sql2 = "SELECT * FROM usuario WHERE correo != 'admin@stucom.com'";
     }
 
     $result2 = mysqli_query($link, $sql2);
@@ -43,10 +43,10 @@ if ($link == false) {
         while ($row = mysqli_fetch_assoc($result2)) {
             $usersToUse[] = $row;
             $id_usuario = $row["id"];
-            $sql3 = "SELECT COUNT(p.id) AS 'n' FROM Pokemon p
-                    INNER JOIN Pokedek_pokemon pp ON p.id = pp.id_pokemon 
-                    INNER JOIN Pokedek pk ON pp.id_pokedek = pk.id
-                    INNER JOIN Usuario u ON pk.id_usuario = u.id WHERE u.id ='$id_usuario'";
+            $sql3 = "SELECT COUNT(p.id) AS 'n' FROM pokemon p
+                    INNER JOIN pokedek_pokemon pp ON p.id = pp.id_pokemon 
+                    INNER JOIN pokedek pk ON pp.id_pokedek = pk.id
+                    INNER JOIN usuario u ON pk.id_usuario = u.id WHERE u.id ='$id_usuario'";
             $result3 = mysqli_query($link, $sql3);
             $counters[] = mysqli_fetch_assoc($result3) ?? ["n" => 0];
         }
@@ -101,7 +101,7 @@ if ($link == false) {
                         <div class="input-group-prepend">
                             <button class="btn btn-primary" type="submit">Search</button>  
                         </div>
-                        <input type="text" class="form-control" placeholder="by email" aria-label="user-mail" aria-describedby="basic-addon1" id="user-mail" name="user-mail">
+                        <input type="text" class="form-control" placeholder="by email" aria-label="trainer-mail" aria-describedby="basic-addon1" id="trainer-mail" name="trainer-mail">
                     </div>
                     <small class="font-weight-bold text-danger mb-5"><?= htmlspecialchars($message) ?></small>
                 </form>             

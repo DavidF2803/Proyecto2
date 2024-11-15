@@ -17,8 +17,8 @@ $poks = array(); // Inicializar $poks como un array vacío
 $message = "";
 
 // Verificar si se ha enviado un correo mediante POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
-    $trainerEmail = $_POST['user-mail'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['trainer-mail'])) {
+    $trainerEmail = $_POST['trainer-mail'];
 
     // Conectar a la base de datos
     $link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
@@ -51,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-mail'])) {
 
             // Obtener los Pokémon del entrenador
             $sql = "SELECT p.id, p.img_id, p.especie, p.nombre, p.peso, p.altura, p.baxp 
-                    FROM Pokemon p 
-                    INNER JOIN Pokedek_pokemon pp ON p.id = pp.id_pokemon 
-                    INNER JOIN Pokedek pk ON pp.id_pokedek = pk.id 
-                    INNER JOIN Usuario u ON pk.id_usuario = u.id 
+                    FROM pokemon p 
+                    INNER JOIN pokedek_pokemon pp ON p.id = pp.id_pokemon 
+                    INNER JOIN pokedek pk ON pp.id_pokedek = pk.id 
+                    INNER JOIN usuario u ON pk.id_usuario = u.id 
                     WHERE u.correo = '$trainerEmail' 
                     ORDER BY p.id DESC";
             $result = mysqli_query($link, $sql);

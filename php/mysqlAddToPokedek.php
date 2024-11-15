@@ -65,7 +65,7 @@ if ($link == false) {
                 }
             } else {
                 // Restar una pokeball de la tabla usuario y redirigir a failInsert.html
-                $sql = "UPDATE Usuario SET pokeballs = pokeballs - 1 WHERE id='$userID'";
+                $sql = "UPDATE usuario SET pokeballs = pokeballs - 1 WHERE id='$userID'";
                 if (mysqli_query($link, $sql)) {
                     $message = "Pokeball subtracted from user";
                     header('Location: ../failInsert.html');
@@ -84,3 +84,4 @@ if ($link == false) {
     // Cerramos la conexión
     mysqli_close($link);
 }
+?>
