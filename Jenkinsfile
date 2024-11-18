@@ -5,7 +5,7 @@ pipeline {
         // Variables de entorno necesarias para SonarQube
         SONARQUBE_SERVER = 'SonarQube'  // Nombre del servidor SonarQube configurado en Jenkins
         SONAR_HOST_URL = 'http://10.30.212.39:9000'  // URL del servidor SonarQube
-        PATH = "/opt/sonar-scanner-6.2.1.4610-linux-x64/bin:${env.PATH}"  // Ruta del sonar-scanner en tu sistema
+        PATH = "/snap/bin:/usr/local/bin:/usr/bin:/bin:${env.PATH}"  // Ruta del sonar-scanner en tu sistema
     }
 
     stages {
@@ -40,30 +40,26 @@ pipeline {
                 //}
             //}
         //}
-        stage('DAST con OWASP ZAP') {
-    environment {
-        PATH = "/snap/bin:$PATH"
-    }
+stage('DAST con OWASP ZAP') {
     steps {
         script {
-            // Remove any existing container named 'zap_scan'
+            // Elimina cualquier contenedor existente llamado 'zap_scan'
             sh '''
             docker rm -f zap_scan || true
             '''
 
-            // Run OWASP ZAP container without mounting volumes and without '--rm'
+            // Ejecuta el contenedor de OWASP ZAP
             sh '''
-            docker run --user root --name zap_scan -v zap_volume:/zap/wrk/ -t ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py -t http://10.30.212.43 \
-            -r reporte_zap.html -I
+            docker run --user root --name zap_scan -v $(pwd):/zap/wrk/:rw --network="host" \
+            zaproxy/zap-stable zap-baseline.py -t http://10.30.212.43 -r reporte_zap.html
             '''
 
-            // Copy the report directly from the 'zap_scan' container to the Jenkins workspace
+            // Copia el reporte del contenedor al workspace de Jenkins
             sh '''
             docker cp zap_scan:/zap/wrk/reporte_zap.html ./reporte_zap.html
             '''
 
-            // Remove the 'zap_scan' container
+            // Elimina el contenedor de OWASP ZAP
             sh '''
             docker rm zap_scan
             '''
