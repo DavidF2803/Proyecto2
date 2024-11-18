@@ -12,7 +12,7 @@ if (!empty($_POST)) {
     } else {
         // Obtenemos los datos enviados por el post
         $email = mysqli_real_escape_string($link, $_POST["email"]);
-        $name = $_POST["name"];
+        $name = htmlspecialchars(mysqli_real_escape_string($link, $_POST["name"]));
         $pwd = password_hash($_POST["pwd"], PASSWORD_BCRYPT);
         $pokeballs= 30;
         $date = date("Y/m/d h:i:s");
