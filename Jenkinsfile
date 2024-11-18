@@ -41,6 +41,9 @@ pipeline {
             //}
         //}
         stage('DAST con OWASP ZAP') {
+            environment {
+                   PATH = "/snap/bin:$PATH"
+                }
             steps {
                 script {
                     // Remove any existing container named 'zap_scan'
