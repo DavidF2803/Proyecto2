@@ -3,7 +3,7 @@ require __DIR__.'/mysqlProfile.php';
 // Carga la configuración desde el archivo
 $config = require '/var/www/config/db_config.php';
 
-//obtenemos el indice de la imagen clickeada
+//Obtenemos el indice de la imagen clickeada
 $id = $_COOKIE["clicked"];
 //establecemos la conexión con la base de datos
 $link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['dbname']);
